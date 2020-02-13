@@ -24,7 +24,7 @@ else
 fi
 
 echo "Looking for Postgres issue: user holding a relation lock"
-if  grep -q "Detail:s User was holding a relation lock for too long." $log; then
+if  grep -q "Detail: User was holding a relation lock for too long." $log; then
     echo "Found issue"
     RETRYABLE=1
     REASON="Detail: User was holding a relation lock for too long"
