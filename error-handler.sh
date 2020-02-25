@@ -5,9 +5,9 @@ REASON=''
 end_job () {
     echo "Sending email"
     curl --data '{
-    "to": ["aaron.dominguez@adevinta.com"],
+    "to": ["data_team@adevinta.com"],
     "subject": "Rundeck error en job '${jobid}'",
-    "message": "Esto es una prueba",
+    "message": "Se encontro un error en rundeck, el proceso fue detenido",
     "html_message": "<h1>El job '${jobid}' fue detenido debido a '"$(echo $*)"'.</h1></br><h3>mas detalles en <a href='http://3.94.225.3:4440/project/Test/execution/show/${jobid}'>Click aqui</a></h3>",
     "name": ["RunDeck"]}' -X POST http://10.45.1.130:9191/api/v1/postfix --header "Content-Type: application/x-www-form-urlencoded"
     echo "Killing job"
