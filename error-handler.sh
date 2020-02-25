@@ -24,10 +24,24 @@ else
 fi
 
 echo "Looking for Postgres issue: user holding a relation lock"
-if  grep -q "Detail:s User was holding a relation lock for too long." $log; then
+if  grep -q "Detail: User was holding a relation lock for too long." $log; then
     echo "Found issue"
     RETRYABLE=1
     REASON="Detail: User was holding a relation lock for too long"
+fi
+
+echo "Looking for Postgres issue: Error connecting to database"
+if  grep -q "Error connecting to database" $log; then
+    echo "Found issue"
+    RETRYABLE=1
+    REASON="Detail: Error connecting to database"
+fi
+
+echo "Looking for Pentaho issue: An I/O error occured while sending to the backend"
+if  grep -q "An I/O error occured while sending to the backend" $log; then
+    echo "Found issue"
+    RETRYABLE=1
+    REASON="Detail: An I/O error occured while sending to the backend"
 fi
 
 if [[ $RETRYABLE == 1 ]]; then
