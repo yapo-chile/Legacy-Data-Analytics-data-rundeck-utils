@@ -19,8 +19,7 @@ if [ -f $log ]; then
 else
     echo "Log not found"
     REASON="no encontre el log '${log}'"
-    end_job $REASON
-    exit 0
+    exit 1
 fi
 
 echo "Looking for Postgres issue: user holding a relation lock"
