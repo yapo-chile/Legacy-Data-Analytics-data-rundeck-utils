@@ -9,7 +9,7 @@ end_job () {
     "subject": "Rundeck error en job '${jobid}'",
     "message": "Se encontro un error en rundeck, el proceso fue detenido",
     "html_message": "<h1>El job '${jobid}' fue detenido debido a '"$(echo $*)"'.</h1></br><h3>mas detalles en <a href='http://3.94.225.3:4440/project/Test/execution/show/${jobid}'>Click aqui</a></h3>",
-    "name": ["RunDeck"]}' -X POST http://10.45.1.11:9191/api/v1/postfix --header "Content-Type: application/x-www-form-urlencoded" --header "Host: mailer.pro.yapo.cl"
+    "name": ["RunDeck"]}' -X POST http://mailer.pro.yapo.cl/api/v1/postfix --header "Content-Type: application/x-www-form-urlencoded" --header "Host: mailer.pro.yapo.cl"
     echo "Killing job"
     curl http://10.55.10.173:4440/api/21/execution/${jobid}/abort --header "X-Rundeck-Auth-Token: C3A29QypKrovDef9EqH7vRaF9w5oqGUn" --header 'Content-Type: application/json'
 }
