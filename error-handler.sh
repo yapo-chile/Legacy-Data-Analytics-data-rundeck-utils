@@ -4,17 +4,16 @@ REASON=''
 # end_job sends an slack notification and call an api to kill this job
 end_job () {
     echo "Sending Slack notification"
-    curl -X POST -H 'Content-type: application/json' 
-    --data '{	
+    curl --data '{	
         "attachments": [
             {
                 "fallback": "Required plain-text summary of the attachment.",
                 "color": "#cc0000",
-                "pretext": "Error en job '${jobid}'",
+                "pretext": "Error en job #'${jobid}'",
                 "author_name": "Rundeck",
                 "title": "Job Fallido",
                 "title_link": "http://3.94.225.3:4440/project/Test/execution/show/'${jobid}'",
-                "text": "El job '${jobid}' fue detenido debido a '$(echo $*)'",
+                "text": "El job #'${jobid}' fue detenido luego de agotar sus reintentos",
                 "fields": [
                     {
                         "title": "Priority",
@@ -25,7 +24,7 @@ end_job () {
                 "footer": "Data Notificator bot"
             }
         ]
-    }' https://hooks.slack.com/services/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
+    }' -X POST -k https://hooks.slack.com/services/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 --header 'Content-type: application/json'
     echo "Killing job"
     curl http://10.55.10.173:4440/api/21/execution/${jobid}/abort --header "X-Rundeck-Auth-Token: C3A29QypKrovDef9EqH7vRaF9w5oqGUn" --header 'Content-Type: application/json'
 }
